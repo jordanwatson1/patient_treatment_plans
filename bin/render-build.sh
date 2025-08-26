@@ -20,5 +20,6 @@ bundle install
 bundle exec rails assets:precompile
 bundle exec rails assets:clean
 
-# Free plan: run migrations at build time
+# Migrate primary and cable
 bundle exec rails db:migrate
+bundle exec rails db:migrate:cable
