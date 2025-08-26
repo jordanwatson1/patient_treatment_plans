@@ -1,0 +1,24 @@
+databases:
+  - name: patient_treatment_plans_db
+    databaseName: patient_treatment_plans
+    user: patient_treatment_plans
+    plan: free
+
+services:
+  - type: web
+    name: patient_treatment_plans
+    runtime: ruby
+    plan: free
+    buildCommand: "./bin/render-build.sh"
+    # If you later upgrade off Free, move db:migrate to preDeployCommand:
+    # preDeployCommand: "bundle exec rails db:migrate"
+    startCommand: "bundle exec rails server"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: patient_treatment_plans_db
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: WEB_CONCURRENCY
+        value: "1"
