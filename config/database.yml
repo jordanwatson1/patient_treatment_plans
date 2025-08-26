@@ -13,23 +13,20 @@ test:
   database: clinic_admin_portal_test
 
 # ---- Production on Render ----
-# Use the same Postgres (DATABASE_URL) for all roles to keep it simple.
+# Keep it simple: all roles use the same DATABASE_URL.
 production:
   primary:
     <<: *default
     url: <%= ENV["DATABASE_URL"] %>
 
-  # Required by Solid Cable (Rails 8). Points to the same DB.
   cable:
     <<: *default
     url: <%= ENV["DATABASE_URL"] %>
 
-  # If you later want Solid Queue / Solid Cache, you can uncomment these and
-  # run their migrations too. For now, keeping them disabled avoids extra setup.
-  # queue:
-  #   <<: *default
-  #   url: <%= ENV["DATABASE_URL"] %>
-  #
-  # cache:
-  #   <<: *default
-  #   url: <%= ENV["DATABASE_URL"] %>
+  queue:
+    <<: *default
+    url: <%= ENV["DATABASE_URL"] %>
+
+  cache:
+    <<: *default
+    url: <%= ENV["DATABASE_URL"] %>

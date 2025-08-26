@@ -23,3 +23,5 @@ bundle exec rails assets:clean
 # Migrate primary and cable
 bundle exec rails db:migrate
 bundle exec rails db:migrate:cable
+bundle exec rails db:migrate:queue
+bundle exec rails db:migrate:cache
