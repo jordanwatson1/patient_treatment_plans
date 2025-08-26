@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-set -euo pipefail
-
-# Ensure Yarn 4 is available via Corepack
-corepack enable >/dev/null 2>&1 || true
-corepack prepare yarn@4.9.2 --activate >/dev/null 2>&1 || true
-
-# Delegate to Yarn (v4) via Corepack
-exec corepack yarn "$@"
