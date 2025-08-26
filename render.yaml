@@ -22,3 +22,5 @@ services:
         sync: false
       - key: WEB_CONCURRENCY
         value: "1"
+      - key: NODE_VERSION
+        value: "20"

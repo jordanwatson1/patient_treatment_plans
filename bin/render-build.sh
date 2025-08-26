@@ -2,13 +2,16 @@
 set -o errexit
 
 # --- Make Yarn 4 available (Render image ships with Yarn 1) ---
-# Corepack is included with Node >=16.9; this activates Yarn 4 per package.json
 corepack enable
+# Ensure Corepack shims are used instead of global Yarn 1:
+export PATH="$HOME/.local/share/corepack/shims:$PATH"
 corepack prepare yarn@4.9.2 --activate
+
+echo "Node: $(node -v)"
+echo "Yarn path: $(which yarn)"
 yarn --version
 
-# Install JS deps; disable "immutable" to allow lockfile/node_modules on CI
-# (Yarn 4 only fails immutability if the lockfile needs changes)
+# JS deps (allow writes in CI)
 YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install
 
 # --- Ruby deps & assets ---
