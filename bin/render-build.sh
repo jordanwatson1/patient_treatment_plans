@@ -1,19 +1,14 @@
 #!/usr/bin/env bash
 set -o errexit
 
-# Put our repo's bin/ first so "yarn" resolves to bin/yarn (the wrapper)
+# Ensure our wrapper is found first
 export PATH="./bin:$PATH"
 
-# (Optional) Also prepare Corepack in case you call it directly
-corepack enable
-corepack prepare yarn@4.9.2 --activate
-
 echo "Node: $(node -v)"
-echo "Yarn (which): $(which yarn)"      # should print .../project/src/bin/yarn
-echo "Yarn (v): $(yarn --version)"       # should print 4.9.2
-echo "Corepack Yarn (v): $(corepack yarn --version)"
+echo "Yarn (which): $(which yarn)"   # should be /opt/render/project/src/bin/yarn
+echo "Yarn (v): $(yarn --version)"   # should be 4.9.2
 
-# JS deps (allow lockfile writes on CI)
+# JS deps
 YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install
 
 # Ruby deps & assets
