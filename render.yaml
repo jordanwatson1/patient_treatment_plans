@@ -10,8 +10,6 @@ services:
     runtime: ruby
     plan: free
     buildCommand: "./bin/render-build.sh"
-    # If you later upgrade off Free, move db:migrate to preDeployCommand:
-    # preDeployCommand: "bundle exec rails db:migrate"
     startCommand: "bundle exec rails server"
     envVars:
       - key: DATABASE_URL
@@ -24,3 +22,7 @@ services:
         value: "1"
       - key: NODE_VERSION
         value: "20"
+      - key: RAILS_ENV
+        value: "production"
+      - key: RACK_ENV
+        value: "production"
