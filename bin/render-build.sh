@@ -1,20 +1,22 @@
 #!/usr/bin/env bash
 set -o errexit
 
-# --- Make Yarn 4 available (Render image ships with Yarn 1) ---
+# Put our repo's bin/ first so "yarn" resolves to bin/yarn (the wrapper)
+export PATH="./bin:$PATH"
+
+# (Optional) Also prepare Corepack in case you call it directly
 corepack enable
-# Ensure Corepack shims are used instead of global Yarn 1:
-export PATH="$HOME/.local/share/corepack/shims:$PATH"
 corepack prepare yarn@4.9.2 --activate
 
 echo "Node: $(node -v)"
-echo "Yarn path: $(which yarn)"
-yarn --version
+echo "Yarn (which): $(which yarn)"      # should print .../project/src/bin/yarn
+echo "Yarn (v): $(yarn --version)"       # should print 4.9.2
+echo "Corepack Yarn (v): $(corepack yarn --version)"
 
-# JS deps (allow writes in CI)
+# JS deps (allow lockfile writes on CI)
 YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install
 
-# --- Ruby deps & assets ---
+# Ruby deps & assets
 bundle install
 bundle exec rails assets:precompile
 bundle exec rails assets:clean
