@@ -31,7 +31,7 @@ jobs:
         run: corepack enable
 
       - name: Cache Yarn
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: .yarn/cache
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
@@ -87,7 +87,7 @@ jobs:
         run: corepack enable
 
       - name: Cache Yarn
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: .yarn/cache
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
